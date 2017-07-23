@@ -1,0 +1,20 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "b6519c75fb6574e887a1ba0ad3dc3b2e212f69ced71b75bd7cb3df16af330268"
+        },
+        "requires": {},
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pydantic": {
+            "version": "==0.4"
+        }
+    },
+    "develop": {}
+}
