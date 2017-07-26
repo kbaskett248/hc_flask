@@ -22,7 +22,7 @@ class ApiBase(object):
     @classmethod
     def put_individual(cls, body, **kwargs) -> 'ApiBase.PutResult':
         body.update(kwargs)
-        entity = cls.get(**body)
+        entity = cls.query_from_db(**body)
         if entity:
             entity.update(**body)
             return cls.PutResult(entity, cls.STATUS_UPDATED)
@@ -57,7 +57,7 @@ class FlaskApi(ApiBase):
     AdminView = BaseModelView
 
     @classmethod
-    def put_endpoint(cls, body) -> Response:
+    def put_endpoint(cls, body, *args) -> Response:
         results = super(FlaskApi, cls).put_endpoint(session=db_session, body=body)
         return jsonify(
             [{cls.__name__: result.entity.to_dict(),

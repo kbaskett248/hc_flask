@@ -56,7 +56,7 @@ class SqlAlchemy(Base):
         return entity
 
     @classmethod
-    def get(cls, session, **kwargs):
+    def query_from_db(cls, session, **kwargs):
         def col_value(col):
             if col.default is not None:
                 if col.default.is_callable:

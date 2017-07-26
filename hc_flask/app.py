@@ -1,23 +1,31 @@
 from flask import Flask, request, jsonify
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_apispec import use_kwargs, marshal_with, FlaskApiSpec
-from webargs import fields
+from flask_restplus import Api, Resource, reqparse
 
 from hc_flask.database import db_session
 from hc_flask.models.screenresolution import ScreenResolution
 
 
 app = Flask(__name__)
-docs = FlaskApiSpec(app)
 admin = Admin(app)
 admin.add_view(ScreenResolution.get_admin_view())
-ScreenResolution.register_routes(app)
+# ScreenResolution.register_routes(app)
+
+
+api = Api(app)
 
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
+
+
+@api.route('/v1/screenresolution')
+class ScreenResolutionResource(Resource):
+    @api.expect([ScreenResolution.InputSchema])
+    def put(self):
+        return ScreenResolution.put_endpoint()
 
 
 # @app.route('/v1/screenresolution', methods=['POST'])

@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from flask_apispec import use_kwargs, marshal_with
+from flask_restplus import api
 from marshmallow import Schema, fields
 from webargs.flaskparser import use_args
 
